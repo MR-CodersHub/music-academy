@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pianist</title>
+    <meta name="description"
+        content="Manage your music academy with ease - track students, courses, revenue, and faculty.">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+    <style>
+        :root {
+            --admin-primary: #6366f1;
+            --admin-secondary: #a855f7;
+            --admin-accent: #f43f5e;
+            --admin-bg: #0b0e14;
+            --admin-card-bg: rgba(255, 255, 255, 0.03);
+            --admin-card-border: rgba(255, 255, 255, 0.08);
+            --admin-text-main: #f8fafc;
+            --admin-text-muted: #94a3b8;
+            --sidebar-width: 280px;
+            --glass-bg: rgba(15, 23, 42, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body.admin-theme {
+            background-color: var(--admin-bg);
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.1) 0%, transparent 35%);
+            color: var(--admin-text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(4px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .mobile-sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--admin-text-main);
+            margin-right: 1rem;
+        }
+
+        /* ===== LAYOUT ===== */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .admin-sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(11, 14, 20, 0.8);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--admin-card-border);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem;
+        }
+
+        .sidebar-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .sidebar-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .topbar-branding {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            margin-left: 0.5rem;
+        }
+
+        .topbar-logo-img {
+            height: 24px;
+            width: auto;
+        }
+
+        .topbar-logo-text {
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--admin-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 1.5rem 0 0.5rem 0.75rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            color: var(--admin-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            color: white;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item.active svg {
+            color: var(--admin-primary);
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            transition: color 0.3s;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--admin-card-border);
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+        }
+
+        .admin-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--admin-card-border);
+        }
+
+        .admin-info h4 {
+            font-size: 0.9rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .admin-info span {
+            font-size: 0.75rem;
+            color: var(--admin-text-muted);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .admin-main {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2.5rem;
+            min-width: 0;
+            min-height: 100vh;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* ===== TOPBAR ===== */
+        .admin-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+        }
+
+        .search-command {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--admin-card-bg);
+            border: 1px solid var(--admin-card-border);
+            padding: 0.6rem 1rem;
+            border-radius: 14px;
+            width: 400px;
+            color: var(--admin-text-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-command:hover {
+            border-color: var(--admin-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .cmd-key {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--admin-card-bg);
+            border: 1px solid var(--admin-card-border);
+            border-radius: 14px;
+            color: var(--admin-text-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .action-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--admin-primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            background: var(--admin-accent);
+            border-radius: 50%;
+            border: 2px solid var(--admin-bg);
+        }
+
+        /* ===== DASHBOARD STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--admin-card-bg);
+            border: 1px solid var(--admin-card-border);
+            padding: 1.5rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .stat-card.blue .stat-icon-wrapper {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .stat-card.purple .stat-icon-wrapper {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+        }
+
+        .stat-card.green .stat-icon-wrapper {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .stat-card.orange .stat-icon-wrapper {
+            background: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--admin-text-muted);
+            font-weight: 500;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .stat-trend.up {
+            color: #22c55e;
+        }
+
+        .stat-trend.down {
+            color: #ef4444;
+        }
+
+        .stat-chart-spark {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            opacity: 0.2;
+        }
+
+        /* ===== CONTENT GRID ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .section-card {
+            background: var(--admin-card-bg);
+            border: 1px solid var(--admin-card-border);
+            border-radius: 24px;
+            padding: 1.75rem;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.75rem;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .card-action {
+            color: var(--admin-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .card-action:hover {
+            opacity: 0.8;
+        }
+
+        /* Recent Enrollments Table */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th {
+            text-align: left;
+            padding: 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--admin-text-muted);
+            border-bottom: 1px solid var(--admin-card-border);
+        }
+
+        .admin-table td {
+            padding: 1rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--admin-card-border);
+        }
+
+        .table-user {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .table-user-img {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-badge.paid {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .status-badge.pending {
+            background: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+        }
+
+        /* Course Popularity Chart (CSS) */
+        .popularity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .popularity-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .pop-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .pop-bar-bg {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .pop-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--admin-primary), var(--admin-secondary));
+            border-radius: 5px;
+            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== FLOATING ACTION BUTTON ===== */
+        .fab-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .fab-main {
+            width: 60px;
+            height: 60px;
+            background: var(--admin-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .fab-main:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* ===== RESPONSIVE TABLE ===== */
+        .admin-table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .dashboard-content-section {
+            width: 100%;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-bar-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--admin-card-border);
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            gap: 0.75rem;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-bar-wrapper input {
+            background: none;
+            border: none;
+            color: white;
+            width: 100%;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .revenue-chart-mock {
+            height: 200px;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+            border-bottom: 2px solid var(--admin-primary);
+            position: relative;
+            margin-top: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .chart-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--admin-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--admin-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .search-bar-wrapper {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .card-header-actions {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body.admin-theme {
+                height: auto !important;
+                min-height: 100vh;
+            }
+
+            .admin-sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .admin-sidebar.open {
+                transform: translateX(0);
+                box-shadow: 20px 0 40px rgba(0, 0, 0, 0.4);
+            }
+
+            .mobile-sidebar-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .admin-main {
+                margin-left: 0;
+                width: 100%;
+                min-width: 0;
+                max-width: 100%;
+                padding: 1.5rem;
+                padding-bottom: 8rem;
+                box-sizing: border-box;
+                overflow: visible !important;
+                height: auto !important;
+                min-height: auto !important;
+            }
+
+            .admin-wrapper {
+                overflow: visible !important;
+                height: auto !important;
+            }
+
+            .dashboard-content-section {
+                overflow: visible !important;
+                height: auto !important;
+            }
+
+            .topbar-branding {
+                display: flex;
+            }
+
+            .sidebar-header {
+                padding: 1.5rem;
+            }
+
+            .admin-topbar {
+                margin-bottom: 1.5rem;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                gap: 0.5rem;
+                width: 100%;
+                max-width: 100%;
+                justify-content: space-between;
+                box-sizing: border-box;
+            }
+
+            .search-command {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .admin-table-container {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin-top: 0.5rem;
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 12px;
+            }
+
+            .admin-table {
+                min-width: 500px;
+            }
+
+            .card-header {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .pop-info {
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .admin-sidebar {
+                width: 280px;
+            }
+
+            .admin-main {
+                padding: 0.75rem;
+                padding-bottom: 9rem;
+            }
+
+            .card-placeholder {
+                padding: 1.25rem !important;
+            }
+
+            .admin-topbar {
+                padding: 0.5rem 0;
+                margin-bottom: 1rem;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                gap: 0.5rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .action-btn {
+                width: 32px;
+                height: 32px;
+            }
+
+            .action-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .topbar-actions {
+                gap: 0.35rem;
+            }
+
+            .brand-name {
+                font-size: 0.95rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .section-card {
+                padding: 1.25rem;
+                border-radius: 16px;
+            }
+
+            .fab-main {
+                width: 48px;
+                height: 48px;
+            }
+
+            .fab-container {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="admin-theme">
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <img src="assets/images/logo.png" alt="Pianist Logo">
+                    <span class="sidebar-logo-text">Pianist</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <span class="nav-label">Main Menu</span>
+                <a href="admin-dashboard.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#students" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    Students
+                </a>
+
+                <span class="nav-label">Switch View</span>
+
+                <a href="#bookings" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    Bookings
+                </a>
+
+                <span class="nav-label">Management</span>
+                <a href="#faculty" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <polyline points="16 11 18 13 22 9"></polyline>
+                    </svg>
+                    Faculty
+                </a>
+                <a href="#revenue" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    Revenue
+                </a>
+                <a href="#settings" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="admin-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+Pianist&background=6366f1&color=fff" alt="Admin"
+                        class="admin-avatar">
+                    <div class="admin-info">
+                        <h4>Alex Chen</h4>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+                <button onclick="logoutAdmin()"
+                    style="width: 100%; margin-top: 1rem; padding: 0.75rem; background: rgba(244, 63, 94, 0.1); color: #f43f5e; border: 1px solid #f43f5e; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Topbar -->
+            <header class="admin-topbar">
+                <div style="display: flex; align-items: center;">
+                    <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <a href="index.html" class="topbar-branding">
+                        <img src="assets/images/logo.png" alt="Pianist" class="topbar-logo-img">
+                        <span class="topbar-logo-text">Pianist</span>
+                    </a>
+                    <div class="search-command" onclick="alert('Command Palette Coming Soon!')">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <span>Search students, courses...</span>
+                        <div class="cmd-key">⌘ K</div>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="action-btn" onclick="alert('No new notifications')">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <div class="notification-badge"></div>
+                    </button>
+                    <button class="action-btn" onclick="alert('Dark Mode is enabled by default for Admin')">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                    <button onclick="logoutAdmin()" class="action-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content Container (Wraps original dashboard content) -->
+            <div id="main-dashboard-content" class="dashboard-content-section">
+                <!-- Stats Grid -->
+                <section id="stats" class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-value">1,284</span>
+                        <span class="stat-label">Total Students</span>
+                        <div class="stat-trend up">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                            12% increase
+                        </div>
+                    </div>
+
+                    <div class="stat-card purple">
+                        <div class="stat-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-value">42</span>
+                        <span class="stat-label">Active Courses</span>
+                        <div class="stat-trend neutral" style="color: var(--admin-text-muted)">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            No change
+                        </div>
+                    </div>
+
+                    <div class="stat-card green">
+                        <div class="stat-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-value">$12.5k</span>
+                        <span class="stat-label">Monthly Revenue</span>
+                        <div class="stat-trend up">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                            8% increase
+                        </div>
+                    </div>
+
+                    <div class="stat-card orange">
+                        <div class="stat-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <span class="stat-value">158</span>
+                        <span class="stat-label">Pending Bookings</span>
+                        <div class="stat-trend down" style="color: #ef4444">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+                                <polyline points="17 18 23 18 23 12"></polyline>
+                            </svg>
+                            4% decrease
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main Content Grid -->
+                <div class="content-grid">
+                    <!-- Recent Enrollments -->
+                    <section id="students" class="section-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Recent Enrollments</h2>
+                            <a href="#" class="card-action">View All</a>
+                        </div>
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Course</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Jon+Doe&background=random"
+                                                    class="table-user-img">
+                                                <span>Jon Doe</span>
+                                            </div>
+                                        </td>
+                                        <td>Piano Fundamentals</td>
+                                        <td>Oct 24, 2023</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                        <td><svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                style="cursor: pointer; color: var(--admin-text-muted)">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=random"
+                                                    class="table-user-img">
+                                                <span>Sarah Smith</span>
+                                            </div>
+                                        </td>
+                                        <td>Advanced Theory</td>
+                                        <td>Oct 23, 2023</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                        <td><svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                style="cursor: pointer; color: var(--admin-text-muted)">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Mike+Ross&background=random"
+                                                    class="table-user-img">
+                                                <span>Mike Ross</span>
+                                            </div>
+                                        </td>
+                                        <td>Jazz Improvisation</td>
+                                        <td>Oct 22, 2023</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                        <td><svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                style="cursor: pointer; color: var(--admin-text-muted)">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Course Popularity -->
+                    <section id="popularity" class="section-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Course Popularity</h2>
+                            <a href="#" class="card-action">Reports</a>
+                        </div>
+                        <div class="popularity-list">
+                            <div class="popularity-item">
+                                <div class="pop-info">
+                                    <span>Advanced Piano</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="pop-bar-bg">
+                                    <div class="pop-bar-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="popularity-item">
+                                <div class="pop-info">
+                                    <span>Music Theory</span>
+                                    <span>62%</span>
+                                </div>
+                                <div class="pop-bar-bg">
+                                    <div class="pop-bar-fill"
+                                        style="width: 62%; background: linear-gradient(to right, #a855f7, #ec4899)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popularity-item">
+                                <div class="pop-info">
+                                    <span>Beginner Jazz</span>
+                                    <span>45%</span>
+                                </div>
+                                <div class="pop-bar-bg">
+                                    <div class="pop-bar-fill"
+                                        style="width: 45%; background: linear-gradient(to right, #22c55e, #10b981)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popularity-item">
+                                <div class="pop-info">
+                                    <span>Classical Composing</span>
+                                    <span>30%</span>
+                                </div>
+                                <div class="pop-bar-bg">
+                                    <div class="pop-bar-fill"
+                                        style="width: 30%; background: linear-gradient(to right, #f97316, #f43f5e)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Bookings Section (Placeholder for functionality) -->
+                    <section id="bookings" class="section-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Pending Bookings</h2>
+                            <a href="#" class="card-action">Manage</a>
+                        </div>
+                        <div class="card-placeholder"
+                            style="padding: 2rem; text-align: center; color: var(--admin-text-muted); background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px dashed var(--admin-card-border);">
+                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor"
+                                stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.5;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <p>No new bookings scheduled for today.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Faculty Section -->
+                <div id="faculty-section" class="dashboard-content-section" style="display: none;">
+                    <section class="section-card">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="card-title">Faculty Management</h2>
+                                <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-top: 0.25rem;">
+                                    Manage and monitor academy instructors</p>
+                            </div>
+                            <div class="card-header-actions"
+                                style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                                <div class="search-bar-wrapper">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    <input type="text" placeholder="Search faculty...">
+                                </div>
+                                <button class="card-action"
+                                    style="background: var(--admin-primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 12px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap;">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    Add Faculty
+                                </button>
+                            </div>
+                        </div>
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Instructor</th>
+                                        <th>Subject</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff"
+                                                    class="table-user-img">
+                                                <div style="display: flex; flex-direction: column;">
+                                                    <span style="font-weight: 600;">Alex Johnson</span>
+                                                    <span
+                                                        style="font-size: 0.75rem; color: var(--admin-text-muted);">Joined
+                                                        Oct 2021</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Piano Fundamentals</td>
+                                        <td>alex.j@pianist.com</td>
+                                        <td>+1 234 567 890</td>
+                                        <td><span class="status-badge paid">Active</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.75rem;">
+                                                <button title="View Details"
+                                                    style="background: none; border: none; color: #94a3b8; cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                    </svg></button>
+                                                <button title="Edit"
+                                                    style="background: none; border: none; color: var(--admin-primary); cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg></button>
+                                                <button title="Delete"
+                                                    style="background: none; border: none; color: var(--admin-accent); cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path
+                                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                        </path>
+                                                    </svg></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Maria+Garcia&background=a855f7&color=fff"
+                                                    class="table-user-img">
+                                                <div style="display: flex; flex-direction: column;">
+                                                    <span style="font-weight: 600;">Maria Garcia</span>
+                                                    <span
+                                                        style="font-size: 0.75rem; color: var(--admin-text-muted);">Joined
+                                                        Jan 2022</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Music Theory</td>
+                                        <td>m.garcia@pianist.com</td>
+                                        <td>+1 234 987 654</td>
+                                        <td><span class="status-badge paid">Active</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.75rem;">
+                                                <button title="View Details"
+                                                    style="background: none; border: none; color: #94a3b8; cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                    </svg></button>
+                                                <button title="Edit"
+                                                    style="background: none; border: none; color: var(--admin-primary); cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg></button>
+                                                <button title="Delete"
+                                                    style="background: none; border: none; color: var(--admin-accent); cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path
+                                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                        </path>
+                                                    </svg></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Robert+Wilson&background=22c55e&color=fff"
+                                                    class="table-user-img">
+                                                <div style="display: flex; flex-direction: column;">
+                                                    <span style="font-weight: 600;">Robert Wilson</span>
+                                                    <span
+                                                        style="font-size: 0.75rem; color: var(--admin-text-muted);">Joined
+                                                        Mar 2023</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Advanced Jazz</td>
+                                        <td>r.wilson@pianist.com</td>
+                                        <td>+1 567 123 456</td>
+                                        <td><span class="status-badge pending">On Leave</span></td>
+                                        <td>
+                                            <div style="display: flex; gap: 0.75rem;">
+                                                <button title="View Details"
+                                                    style="background: none; border: none; color: #94a3b8; cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                    </svg></button>
+                                                <button title="Edit"
+                                                    style="background: none; border: none; color: var(--admin-primary); cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg></button>
+                                                <button title="Delete"
+                                                    style="background: none; border: none; color: var(--admin-accent); cursor: pointer;"><svg
+                                                        viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path
+                                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                        </path>
+                                                    </svg></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Revenue Section -->
+                <div id="revenue-section" class="dashboard-content-section" style="display: none;">
+                    <div class="stats-grid">
+                        <div class="stat-card blue">
+                            <div class="stat-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </div>
+                            <span class="stat-value">$124,590</span>
+                            <span class="stat-label">Total Revenue</span>
+                            <div class="stat-trend up">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                                +15.2% vs last month
+                            </div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <span class="stat-value">$12,450</span>
+                            <span class="stat-label">This Month</span>
+                            <div class="stat-trend up">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                                +8.4%
+                            </div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <span class="stat-value">1,250</span>
+                            <span class="stat-label">Total Subscriptions</span>
+                            <div class="stat-trend up">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                                +4.1%
+                            </div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                </svg>
+                            </div>
+                            <span class="stat-value">$1,250</span>
+                            <span class="stat-label">Average Sale</span>
+                            <div class="stat-trend up">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                                +2.5%
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
+                        <section class="section-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Monthly Revenue Analytics</h2>
+                                <select
+                                    style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-card-border); color: white; padding: 0.4rem; border-radius: 8px; outline: none; font-size: 0.8rem;">
+                                    <option>Last 6 Months</option>
+                                    <option>Last Year</option>
+                                </select>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--admin-text-muted);">Visual projection of earnings
+                                growth and trends.</p>
+                            <div class="revenue-chart-mock">
+                                <div class="chart-point" style="left: 10%; bottom: 20%;"></div>
+                                <div class="chart-point" style="left: 25%; bottom: 45%;"></div>
+                                <div class="chart-point" style="left: 40%; bottom: 35%;"></div>
+                                <div class="chart-point" style="left: 60%; bottom: 70%;"></div>
+                                <div class="chart-point" style="left: 80%; bottom: 60%;"></div>
+                                <div class="chart-point" style="left: 95%; bottom: 85%;"></div>
+                                <svg style="position: absolute; width: 100%; height: 100%;" preserveAspectRatio="none">
+                                    <path d="M0,160 L100,110 L200,130 L300,60 L400,80 L500,30" fill="none"
+                                        stroke="var(--admin-primary)" stroke-width="3"
+                                        style="vector-effect: non-scaling-stroke;"></path>
+                                </svg>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.75rem; color: var(--admin-text-muted);">
+                                <span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
+                            </div>
+                        </section>
+
+                        <section class="section-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Payment Methods</h2>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 10px; background: rgba(99, 102, 241, 0.1); display: flex; align-items: center; justify-content: center; color: var(--admin-primary);">
+                                        CC</div>
+                                    <div style="flex: 1;">
+                                        <div
+                                            style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                            <span style="font-size: 0.9rem; font-weight: 600;">Credit Card</span>
+                                            <span style="font-size: 0.9rem; font-weight: 600;">64%</span>
+                                        </div>
+                                        <div
+                                            style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                                            <div style="width: 64%; height: 100%; background: var(--admin-primary);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 10px; background: rgba(168, 85, 247, 0.1); display: flex; align-items: center; justify-content: center; color: #a855f7;">
+                                        PP</div>
+                                    <div style="flex: 1;">
+                                        <div
+                                            style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                            <span style="font-size: 0.9rem; font-weight: 600;">PayPal</span>
+                                            <span style="font-size: 0.9rem; font-weight: 600;">28%</span>
+                                        </div>
+                                        <div
+                                            style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                                            <div style="width: 28%; height: 100%; background: #a855f7;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 197, 94, 0.1); display: flex; align-items: center; justify-content: center; color: #22c55e;">
+                                        BT</div>
+                                    <div style="flex: 1;">
+                                        <div
+                                            style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                            <span style="font-size: 0.9rem; font-weight: 600;">Bank Transfer</span>
+                                            <span style="font-size: 0.9rem; font-weight: 600;">8%</span>
+                                        </div>
+                                        <div
+                                            style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                                            <div style="width: 8%; height: 100%; background: #22c55e;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <section class="section-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Earnings History</h2>
+                            <button class="card-action"
+                                style="background: none; border: 1px solid var(--admin-card-border); color: white; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.8rem;">Export
+                                CSV</button>
+                        </div>
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Student</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Method</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#TRX-9902</td>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Jon+Doe&background=random"
+                                                    class="table-user-img">
+                                                <span>Jon Doe</span>
+                                            </div>
+                                        </td>
+                                        <td>Oct 25, 2023</td>
+                                        <td style="font-weight: 700;">$450.00</td>
+                                        <td>Stripe</td>
+                                        <td><span class="status-badge paid">Success</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TRX-9901</td>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=random"
+                                                    class="table-user-img">
+                                                <span>Sarah Smith</span>
+                                            </div>
+                                        </td>
+                                        <td>Oct 24, 2023</td>
+                                        <td style="font-weight: 700;">$1,200.00</td>
+                                        <td>PayPal</td>
+                                        <td><span class="status-badge paid">Success</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TRX-9900</td>
+                                        <td>
+                                            <div class="table-user">
+                                                <img src="https://ui-avatars.com/api/?name=Mike+Ross&background=random"
+                                                    class="table-user-img">
+                                                <span>Mike Ross</span>
+                                            </div>
+                                        </td>
+                                        <td>Oct 23, 2023</td>
+                                        <td style="font-weight: 700;">$300.00</td>
+                                        <td>Stripe</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings-section" class="dashboard-content-section" style="display: none;">
+                    <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+                        <section class="section-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Profile Settings</h2>
+                            </div>
+                            <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <label style="font-size: 0.9rem; color: var(--admin-text-muted);">Full Name</label>
+                                    <input type="text" value="Admin User"
+                                        style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-card-border); color: white; padding: 0.75rem; border-radius: 12px; outline: none;">
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <label style="font-size: 0.9rem; color: var(--admin-text-muted);">Email
+                                        Address</label>
+                                    <input type="email" value="admin@pianist.com"
+                                        style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-card-border); color: white; padding: 0.75rem; border-radius: 12px; outline: none;">
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <label style="font-size: 0.9rem; color: var(--admin-text-muted);">Academy
+                                        Name</label>
+                                    <input type="text" value="Pianist Music Academy"
+                                        style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-card-border); color: white; padding: 0.75rem; border-radius: 12px; outline: none;">
+                                </div>
+                                <button type="button" onclick="alert('Profile Updated!')"
+                                    style="background: var(--admin-primary); color: white; border: none; padding: 0.75rem; border-radius: 12px; cursor: pointer; font-weight: 600; margin-top: 0.5rem;">Update
+                                    Profile</button>
+                            </form>
+                        </section>
+
+                        <section class="section-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Security</h2>
+                            </div>
+                            <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <label style="font-size: 0.9rem; color: var(--admin-text-muted);">Current
+                                        Password</label>
+                                    <input type="password" placeholder="••••••••"
+                                        style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-card-border); color: white; padding: 0.75rem; border-radius: 12px; outline: none;">
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <label style="font-size: 0.9rem; color: var(--admin-text-muted);">New
+                                        Password</label>
+                                    <input type="password" placeholder="••••••••"
+                                        style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-card-border); color: white; padding: 0.75rem; border-radius: 12px; outline: none;">
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <label style="font-size: 0.9rem; color: var(--admin-text-muted);">Confirm New
+                                        Password</label>
+                                    <input type="password" placeholder="••••••••"
+                                        style="background: rgba(255,255,255,0.05); border: 1px solid var(--admin-card-border); color: white; padding: 0.75rem; border-radius: 12px; outline: none;">
+                                </div>
+                                <button type="button" onclick="alert('Password Changed!')"
+                                    style="background: var(--admin-secondary); color: white; border: none; padding: 0.75rem; border-radius: 12px; cursor: pointer; font-weight: 600; margin-top: 0.5rem;">Change
+                                    Password</button>
+                            </form>
+                        </section>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <section class="section-card">
+                            <div class="card-header">
+                                <h2 class="card-title">System Preferences</h2>
+                            </div>
+                            <div
+                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                                <div
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                                    <div>
+                                        <p style="margin: 0; font-weight: 600;">Email Notifications</p>
+                                        <p style="margin: 0; font-size: 0.8rem; color: var(--admin-text-muted);">Receive
+                                            alerts for new bookings</p>
+                                    </div>
+                                    <input type="checkbox" checked
+                                        style="width: 20px; height: 20px; accent-color: var(--admin-primary);">
+                                </div>
+                                <div
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                                    <div>
+                                        <p style="margin: 0; font-weight: 600;">Weekly Reports</p>
+                                        <p style="margin: 0; font-size: 0.8rem; color: var(--admin-text-muted);">
+                                            Auto-generate analytics CSV</p>
+                                    </div>
+                                    <input type="checkbox"
+                                        style="width: 20px; height: 20px; accent-color: var(--admin-primary);">
+                                </div>
+                                <div
+                                    style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                                    <div>
+                                        <p style="margin: 0; font-weight: 600;">Maintenance Mode</p>
+                                        <p style="margin: 0; font-size: 0.8rem; color: var(--admin-text-muted);">Disable
+                                            public site access</p>
+                                    </div>
+                                    <input type="checkbox"
+                                        style="width: 20px; height: 20px; accent-color: var(--admin-accent);">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+        </main>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <div class="fab-main" onclick="alert('Quick Add Student Flow')">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Micro-interactions Script -->
+    <script>
+        // Smooth entry for bars
+        document.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.pop-bar-fill');
+            bars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+
+            // Section Switching Logic
+            function showDashboardSection(sectionId) {
+                // Hide all sections
+                document.querySelectorAll('.dashboard-content-section').forEach(sec => {
+                    sec.style.display = 'none';
+                });
+                const mainDash = document.getElementById('main-dashboard-content');
+                if (mainDash) mainDash.style.display = 'none';
+
+                // Show selected section
+                if (sectionId === 'dashboard') {
+                    if (mainDash) mainDash.style.display = 'block';
+                } else {
+                    const target = document.getElementById(sectionId + '-section');
+                    if (target) target.style.display = 'block';
+                }
+
+                // Switch stats grid visibility if needed (Revenue has its own)
+                const globalStats = document.getElementById('stats');
+                if (globalStats) {
+                    globalStats.style.display = sectionId === 'dashboard' ? 'grid' : 'none';
+                }
+            }
+
+            // Mobile sidebar toggle
+            const sidebar = document.getElementById('adminSidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+
+            if (sidebarToggle && sidebar && sidebarOverlay) {
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                    sidebarOverlay.classList.toggle('active');
+                });
+            }
+
+            if (sidebarOverlay && sidebar) {
+                sidebarOverlay.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Close sidebar when clicking links and update active state
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const href = item.getAttribute('href');
+
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const sectionName = href.substring(1);
+
+                        // Dashboard vs Others
+                        if (sectionName === 'stats' || sectionName === 'students' || sectionName === 'bookings') {
+                            showDashboardSection('dashboard');
+                            // Scroll to if needed
+                            const target = document.querySelector(href);
+                            if (target) target.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            showDashboardSection(sectionName);
+                        }
+
+                        navItems.forEach(i => i.classList.remove('active'));
+                        item.classList.add('active');
+                    }
+
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('open');
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

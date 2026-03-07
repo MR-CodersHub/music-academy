@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Pianist</title>
+    <meta name="description" content="Track your musical journey, view course progress, and manage your piano lessons.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+            background: #f1f5f9;
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .dashboard-sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 300;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sidebar-header {
+            padding: 1.75rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .sidebar-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .sidebar-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .topbar-branding {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .topbar-logo-img {
+            height: 24px;
+            width: auto;
+        }
+
+        .topbar-logo-text {
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-section-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 0.75rem;
+            padding-left: 0.75rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.8rem 0.75rem;
+            border-radius: 0.75rem;
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            margin-bottom: 0.2rem;
+        }
+
+        .sidebar-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-link.active {
+            color: white;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.2));
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+        }
+
+        .sidebar-link svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-badge {
+            margin-left: auto;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.55rem;
+            border-radius: 10px;
+        }
+
+        .sidebar-nav-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .sidebar-user {
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .sidebar-user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar-user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar-user-role {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .dashboard-main {
+            flex: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+            min-width: 0;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Top Bar */
+        .dashboard-topbar {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mobile-sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .topbar-greeting h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--foreground);
+        }
+
+        .topbar-greeting p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .topbar-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #e2e8f0;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+            color: #64748b;
+        }
+
+        .topbar-icon-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* ===== DASHBOARD CONTENT ===== */
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        /* Quick Stats Row */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.purple {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .stat-icon.green {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .stat-icon.amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .stat-icon.sky {
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+        }
+
+        .stat-info h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--foreground);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-info p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .stat-trend {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .stat-trend.up {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .stat-trend.neutral {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        /* Two-column Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dash-card {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .dash-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .dash-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--foreground);
+        }
+
+        .dash-card-action {
+            font-size: 0.8rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .dash-card-action:hover {
+            opacity: 0.7;
+        }
+
+        /* ===== COURSE PROGRESS CARDS ===== */
+        .course-progress-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .course-progress-item {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+        }
+
+        .course-progress-item:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+            background: rgba(99, 102, 241, 0.02);
+        }
+
+        /* SVG Ring Progress */
+        .progress-ring-container {
+            width: 56px;
+            height: 56px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .progress-ring {
+            width: 56px;
+            height: 56px;
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-bg {
+            fill: none;
+            stroke: #e2e8f0;
+            stroke-width: 4;
+        }
+
+        .progress-ring-fill {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+
+        .progress-ring-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--foreground);
+        }
+
+        .course-progress-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .course-progress-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--foreground);
+            margin-bottom: 0.25rem;
+        }
+
+        .course-progress-meta {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .course-progress-badge {
+            padding: 0.3rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-active {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .badge-paused {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        /* ===== UPCOMING LESSONS ===== */
+        .lesson-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .lesson-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s;
+        }
+
+        .lesson-item:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .lesson-date-badge {
+            width: 50px;
+            height: 56px;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lesson-date-day {
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .lesson-date-month {
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .lesson-details {
+            flex: 1;
+        }
+
+        .lesson-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--foreground);
+            margin-bottom: 0.2rem;
+        }
+
+        .lesson-time {
+            font-size: 0.8rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .lesson-mode {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+            align-self: flex-start;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== PRACTICE STREAK ===== */
+        .streak-section {
+            margin-bottom: 2rem;
+        }
+
+        .streak-card {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .streak-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.15);
+            top: -80px;
+            right: -40px;
+            filter: blur(40px);
+        }
+
+        .streak-info {
+            position: relative;
+            z-index: 2;
+        }
+
+        .streak-count {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .streak-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .streak-sub {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .streak-days {
+            display: flex;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .streak-day {
+            width: 38px;
+            height: 38px;
+            border-radius: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .streak-day.completed {
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            border-color: transparent;
+            color: white;
+        }
+
+        .streak-day.today {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== ACHIEVEMENTS ===== */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .achievement-item {
+            text-align: center;
+            padding: 1.25rem 0.75rem;
+            border-radius: 1rem;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s;
+        }
+
+        .achievement-item:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .achievement-item.locked {
+            opacity: 0.45;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        /* ===== MOBILE BOTTOM NAV ===== */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 0.5rem 0;
+            z-index: 90;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .mobile-bottom-nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .mobile-bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            text-decoration: none;
+            color: #94a3b8;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.35rem 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .mobile-bottom-nav-item.active {
+            color: var(--primary);
+        }
+
+        .mobile-bottom-nav-item svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 250;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        /* Large tablet */
+        @media (max-width: 1280px) {
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .achievements-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .dashboard-sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .dashboard-sidebar.open {
+                transform: translateX(0);
+                box-shadow: 20px 0 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .dashboard-main {
+                margin-left: 0;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            .mobile-sidebar-toggle {
+                display: flex;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .streak-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .streak-days {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .dashboard-content {
+                padding: 1.25rem;
+                padding-bottom: 5rem;
+            }
+
+            .dashboard-topbar {
+                padding: 0.75rem 1.25rem;
+            }
+
+            .topbar-greeting h2 {
+                font-size: 1.05rem;
+            }
+
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .stat-info h3 {
+                font-size: 1.35rem;
+            }
+
+            .achievements-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+
+            .mobile-bottom-nav {
+                display: block;
+            }
+
+            .streak-days {
+                flex-wrap: wrap;
+                gap: 0.35rem;
+            }
+
+            .dashboard-topbar {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+
+        /* Small mobile */
+        @media (max-width: 400px) {
+            .dashboard-content {
+                padding: 0.75rem;
+                padding-bottom: 5rem;
+            }
+
+            .quick-stats {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .course-progress-item {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                padding: 1rem;
+            }
+
+            .course-info h4 {
+                font-size: 0.95rem;
+            }
+
+            .lesson-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 1rem;
+            }
+
+            .lesson-date-badge {
+                flex-direction: row;
+                width: auto;
+                height: auto;
+                padding: 0.5rem 0.75rem;
+                gap: 0.5rem;
+            }
+
+            .streak-day {
+                width: 28px;
+                height: 28px;
+                font-size: 0.55rem;
+            }
+
+            .streak-card {
+                padding: 1.25rem;
+                gap: 1rem;
+            }
+
+            .streak-count {
+                font-size: 2rem;
+            }
+
+            .dash-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .dash-card {
+                padding: 1.25rem;
+                border-radius: 16px;
+            }
+
+            .dashboard-sidebar {
+                width: 280px;
+            }
+
+            .topbar-greeting h2 {
+                white-space: normal;
+                font-size: 0.9rem;
+            }
+
+            .topbar-right {
+                gap: 0.35rem;
+            }
+
+            .dashboard-topbar {
+                padding: 0.5rem 0.75rem;
+                gap: 0.5rem;
+                flex-wrap: nowrap;
+                /* Keep items on same line to prevent shift */
+                justify-content: space-between;
+                width: 100%;
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            .topbar-branding {
+                display: flex;
+            }
+
+            .topbar-greeting {
+                display: none;
+            }
+
+            .topbar-icon-btn {
+                width: 32px;
+                height: 32px;
+            }
+
+            .user-profile-trigger {
+                gap: 0.5rem;
+            }
+
+            .user-name {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Overlay (mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar" id="dashboardSidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <img src="assets/images/logo.png" alt="Pianist Logo">
+                    <span class="sidebar-logo-text">Pianist</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-nav-group">
+                    <p class="sidebar-section-label">Menu</p>
+                    <a href="user-dashboard.html" class="sidebar-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                        </svg>
+                        My Dashboard
+                    </a>
+                    <a href="admin-dashboard.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                        Admin View
+                    </a>
+                    <a href="services.html" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        My Courses
+                        <span class="sidebar-badge">3</span>
+                    </a>
+                    <a href="#upcoming-lessons" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Schedule
+                    </a>
+                    <a href="#achievements" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Achievements
+                    </a>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <p class="sidebar-section-label">Account</p>
+                    <a href="contact.html" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                        Messages
+                        <span class="sidebar-badge">2</span>
+                    </a>
+                    <a href="#" onclick="alert('User Settings Coming Soon!')" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                            </path>
+                        </svg>
+                        Settings
+                    </a>
+                    <a href="index.html" class="sidebar-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Back to Site
+                    </a>
+                    <button onclick="logout()" class="sidebar-link"
+                        style="width: 100%; text-align: left; cursor: pointer; background: none; border: none; font-family: inherit;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </nav>
+
+            <div class="sidebar-user">
+                <div class="sidebar-avatar">HP</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Harini Priya</div>
+                    <div class="sidebar-user-role">Student</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="dashboard-main">
+            <!-- Top Bar -->
+            <div class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <a href="index.html" class="topbar-branding">
+                        <img src="assets/images/logo.png" alt="Pianist" class="topbar-logo-img">
+                        <span class="topbar-logo-text">Pianist</span>
+                    </a>
+                    <div class="topbar-greeting">
+                        <h2>Welcome back, Harini! 🎹</h2>
+                        <p>Your musical journey continues today</p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-icon-btn" aria-label="Notifications" onclick="alert('No new notifications')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button onclick="logout()" class="topbar-icon-btn" aria-label="Logout"
+                        style="background: none; border: none; cursor: pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Practice Streak Banner -->
+                <div class="streak-section">
+                    <div class="streak-card">
+                        <div class="streak-info">
+                            <div class="streak-count">12</div>
+                            <div class="streak-label">Day Practice Streak 🔥</div>
+                            <div class="streak-sub">Longest streak: 28 days</div>
+                        </div>
+                        <div class="streak-days">
+                            <div class="streak-day completed">Mon</div>
+                            <div class="streak-day completed">Tue</div>
+                            <div class="streak-day completed">Wed</div>
+                            <div class="streak-day completed">Thu</div>
+                            <div class="streak-day completed">Fri</div>
+                            <div class="streak-day today">Sat</div>
+                            <div class="streak-day">Sun</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h3>3</h3>
+                            <p>Active Courses</p>
+                            <span class="stat-trend up">↑ 1 new</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h3>47h</h3>
+                            <p>Practice Time</p>
+                            <span class="stat-trend up">↑ 8h this week</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon amber">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Achievements</p>
+                            <span class="stat-trend neutral">2 to unlock</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon sky">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <h3>24</h3>
+                            <p>Lessons Completed</p>
+                            <span class="stat-trend up">↑ 3 this month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Grid: Course Progress + Upcoming Lessons -->
+                <div class="dashboard-grid">
+                    <!-- Course Progress -->
+                    <div class="dash-card">
+                        <div class="dash-card-header">
+                            <h3 class="dash-card-title">Course Progress</h3>
+                            <a href="services.html" class="dash-card-action">View All →</a>
+                        </div>
+                        <div class="course-progress-list">
+                            <!-- Course 1 -->
+                            <div class="course-progress-item">
+                                <div class="progress-ring-container">
+                                    <svg class="progress-ring" viewBox="0 0 56 56">
+                                        <circle class="progress-ring-bg" cx="28" cy="28" r="24"></circle>
+                                        <circle class="progress-ring-fill" cx="28" cy="28" r="24"
+                                            stroke="var(--primary)" stroke-dasharray="150.8" stroke-dashoffset="30.16">
+                                        </circle>
+                                    </svg>
+                                    <div class="progress-ring-text">80%</div>
+                                </div>
+                                <div class="course-progress-info">
+                                    <div class="course-progress-name">Piano Fundamentals</div>
+                                    <div class="course-progress-meta">16 of 20 lessons completed</div>
+                                </div>
+                                <span class="course-progress-badge badge-active">Active</span>
+                            </div>
+
+                            <!-- Course 2 -->
+                            <div class="course-progress-item">
+                                <div class="progress-ring-container">
+                                    <svg class="progress-ring" viewBox="0 0 56 56">
+                                        <circle class="progress-ring-bg" cx="28" cy="28" r="24"></circle>
+                                        <circle class="progress-ring-fill" cx="28" cy="28" r="24" stroke="#22c55e"
+                                            stroke-dasharray="150.8" stroke-dashoffset="67.86"></circle>
+                                    </svg>
+                                    <div class="progress-ring-text">55%</div>
+                                </div>
+                                <div class="course-progress-info">
+                                    <div class="course-progress-name">Music Theory & Composition</div>
+                                    <div class="course-progress-meta">11 of 20 lessons completed</div>
+                                </div>
+                                <span class="course-progress-badge badge-active">Active</span>
+                            </div>
+
+                            <!-- Course 3 -->
+                            <div class="course-progress-item">
+                                <div class="progress-ring-container">
+                                    <svg class="progress-ring" viewBox="0 0 56 56">
+                                        <circle class="progress-ring-bg" cx="28" cy="28" r="24"></circle>
+                                        <circle class="progress-ring-fill" cx="28" cy="28" r="24" stroke="#f59e0b"
+                                            stroke-dasharray="150.8" stroke-dashoffset="120.64"></circle>
+                                    </svg>
+                                    <div class="progress-ring-text">20%</div>
+                                </div>
+                                <div class="course-progress-info">
+                                    <div class="course-progress-name">Advanced Techniques</div>
+                                    <div class="course-progress-meta">4 of 20 lessons completed</div>
+                                </div>
+                                <span class="course-progress-badge badge-paused">New</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Lessons -->
+                    <div id="upcoming-lessons" class="dash-card">
+                        <div class="dash-card-header">
+                            <h3 class="dash-card-title">Upcoming Lessons</h3>
+                            <a href="#" class="dash-card-action">Full Schedule →</a>
+                        </div>
+                        <div class="lesson-timeline">
+                            <div class="lesson-item">
+                                <div class="lesson-date-badge">
+                                    <span class="lesson-date-day">26</span>
+                                    <span class="lesson-date-month">Feb</span>
+                                </div>
+                                <div class="lesson-details">
+                                    <div class="lesson-title">Scales & Arpeggios</div>
+                                    <div class="lesson-time">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                        10:00 AM - 11:00 AM
+                                    </div>
+                                </div>
+                                <span class="lesson-mode">Offline</span>
+                            </div>
+
+                            <div class="lesson-item">
+                                <div class="lesson-date-badge">
+                                    <span class="lesson-date-day">28</span>
+                                    <span class="lesson-date-month">Feb</span>
+                                </div>
+                                <div class="lesson-details">
+                                    <div class="lesson-title">Chord Progressions</div>
+                                    <div class="lesson-time">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                        2:00 PM - 3:00 PM
+                                    </div>
+                                </div>
+                                <span class="lesson-mode">Online</span>
+                            </div>
+
+                            <div class="lesson-item">
+                                <div class="lesson-date-badge">
+                                    <span class="lesson-date-day">02</span>
+                                    <span class="lesson-date-month">Mar</span>
+                                </div>
+                                <div class="lesson-details">
+                                    <div class="lesson-title">Sight Reading Practice</div>
+                                    <div class="lesson-time">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                        11:00 AM - 12:00 PM
+                                    </div>
+                                </div>
+                                <span class="lesson-mode">Offline</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements Section -->
+                <div id="achievements" class="dash-card">
+                    <div class="dash-card-header">
+                        <h3 class="dash-card-title">Achievements</h3>
+                        <a href="#" class="dash-card-action">View All →</a>
+                    </div>
+                    <div class="achievements-grid">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🎹</div>
+                            <div class="achievement-name">First Note</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🔥</div>
+                            <div class="achievement-name">7-Day Streak</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🎵</div>
+                            <div class="achievement-name">Scale Master</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">⭐</div>
+                            <div class="achievement-name">Perfect Score</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🎼</div>
+                            <div class="achievement-name">Composer</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🏆</div>
+                            <div class="achievement-name">Recital Ready</div>
+                        </div>
+                        <div class="achievement-item locked">
+                            <div class="achievement-icon">🌟</div>
+                            <div class="achievement-name">Virtuoso</div>
+                        </div>
+                        <div class="achievement-item locked">
+                            <div class="achievement-icon">👑</div>
+                            <div class="achievement-name">Grand Master</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-bottom-nav">
+        <div class="mobile-bottom-nav-items">
+            <a href="user-dashboard.html" class="mobile-bottom-nav-item active">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+                <span>Home</span>
+            </a>
+            <a href="services.html" class="mobile-bottom-nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Courses</span>
+            </a>
+            <a href="#" class="mobile-bottom-nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Schedule</span>
+            </a>
+            <a href="#" class="mobile-bottom-nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Mobile sidebar toggle
+        const sidebar = document.getElementById('dashboardSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        if (sidebarToggle && sidebar && sidebarOverlay) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('active');
+            });
+        }
+
+        if (sidebarOverlay && sidebar) {
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+            });
+        }
+
+        // Close sidebar when clicking links
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (link.getAttribute('href') !== '#') {
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

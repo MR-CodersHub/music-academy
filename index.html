@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pianist - Unlock Your Musical Potential</title>
+    <meta name="description"
+        content="Transform your passion for music into mastery with our world-class piano instruction">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container" aria-label="Pianist Home">
+                    <img src="assets/images/logo.png" alt="Pianist Logo">
+                    <span class="logo-text">Pianist</span>
+                </a>
+
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="home-2.html" class="nav-link">Home 2</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="blog.html" class="nav-link">Blog</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="enroll.html" class="btn-enroll">Enroll Now</a>
+                </div>
+
+                <div class="nav-actions">
+                    <a href="login.html" class="profile-link" aria-label="Login">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+
+                    <button class="mobile-menu-btn" aria-label="Open Menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu-overlay"></div>
+        <div class="mobile-menu-panel" style="z-index: 9999;">
+            <div class="mobile-menu-header">
+                <button class="close-menu" aria-label="Close Menu">&times;</button>
+            </div>
+            <div class="mobile-menu-links">
+                <a href="index.html" class="mobile-nav-link active">Home</a>
+                <a href="home-2.html" class="mobile-nav-link ">Home 2</a>
+                <a href="about.html" class="mobile-nav-link">About</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="blog.html" class="mobile-nav-link">Blog</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+                <div class="mobile-menu-footer">
+                    <a href="enroll.html" class="btn-enroll mobile-cta">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div id="main-content" class="main-content">
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <img src="assets/images/grand-piano-in-concert-hall.jpg" alt="Piano Background"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title fade-in-up">
+                    Elevate Your Artistry
+                </h1>
+                <p class="hero-subtitle fade-in-up" style="animation-delay: 0.5s;">
+                    Join an elite community of musicians dedicated to mastering the piano. Precision, passion, and
+                    performance.
+                </p>
+                <a href="enroll.html" class="hero-btn fade-in-up" style="animation-delay: 1s;">
+                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Start Your Journey
+                </a>
+            </div>
+
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section"
+            style="background: linear-gradient(to bottom, #ffffff, #f8fafc); position: relative; overflow: hidden;">
+            <!-- Decorative Background Elements -->
+            <div
+                style="position: absolute; top: 0; right: 0; width: 500px; height: 500px; background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%); pointer-events: none;">
+            </div>
+            <div
+                style="position: absolute; bottom: 0; left: 0; width: 400px; height: 400px; background: radial-gradient(circle, rgba(99, 102, 241, 0.03) 0%, transparent 70%); pointer-events: none;">
+            </div>
+
+            <div class="container" style="position: relative; z-index: 1;">
+                <!-- Section Header -->
+                <div style="text-align: center; margin-bottom: 4rem;">
+                    <span
+                        style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(99, 102, 241, 0.1); color: var(--primary); border-radius: 2rem; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem;">About
+                        Us</span>
+                    <h2 class="section-title fade-in-up" style="font-size: 2.5rem; margin-bottom: 1rem;">A Legacy of
+                        Musical Excellence</h2>
+                    <p class="section-subtitle fade-in-up"
+                        style="animation-delay: 0.2s; max-width: 700px; margin: 0 auto; color: var(--muted-foreground);">
+                        Transforming passion into mastery through innovative teaching and personalized guidance
+                    </p>
+                </div>
+
+                <div class="about-grid">
+                    <!-- Image Column with Enhanced Design -->
+                    <div class="about-image-container slide-in-left" style="position: relative;">
+                        <div class="about-image-wrapper" style="position: relative;">
+                            <img src="assets/images/founder-img.jpg" alt="Founder of Pianist" class="about-image">
+                        </div>
+                    </div>
+
+                    <!-- Content Column -->
+                    <div class="about-content slide-in-right">
+                        <!-- Main Description -->
+                        <div style="margin-bottom: 2rem;">
+                            <p class="section-description"
+                                style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                                Pianist was established to bridge the gap between <strong>technical
+                                    proficiency</strong> and <strong>emotional expression</strong>. We believe that true
+                                musicianship comes from understanding the language of music, not just playing notes.
+                            </p>
+
+                            <!-- Learn More Button -->
+                            <a href="about.html"
+                                style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600; font-size: 1rem; transition: all 0.3s; box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);"
+                                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgba(99, 102, 241, 0.4)'"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(99, 102, 241, 0.3)'">
+                                <span>Learn More About Us</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+
+                        </div>
+
+
+
+
+                        <!-- Stats Container -->
+                        <div class="stats-container"
+                            style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                            <div class="stat-item">
+                                <div id="students-count" class="stat-number"
+                                    style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                                    0+</div>
+                                <div class="stat-label">Happy Students</div>
+                            </div>
+                            <div class="stat-item">
+                                <div id="instructors-count" class="stat-number"
+                                    style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                                    0+</div>
+                                <div class="stat-label">Expert Instructors</div>
+                            </div>
+                            <div class="stat-item">
+                                <div id="years-count" class="stat-number"
+                                    style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                                    0+</div>
+                                <div class="stat-label">Years of Excellence</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="courses" class="courses-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title fade-in-up">Our Courses</h2>
+                    <p class="section-subtitle fade-in-up" style="animation-delay: 0.2s;">
+                        Choose from our comprehensive range of piano courses designed for every skill level
+                    </p>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card glassmorphism fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="course-image-wrapper">
+                            <a href="course-fundamentals.html" class="course-image-link">
+                                <img src="assets/images/course_fundamentals.svg" alt="Fundamentals"
+                                    class="course-image">
+                                <div class="course-overlay"></div>
+                            </a>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Foundations of Music</h3>
+                            <p class="course-description">Build a solid musical base with essential techniques and
+                                reading skills.</p>
+                            <div class="course-info">
+                                <div class="course-duration">
+                                    <svg class="clock-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    3 months
+                                </div>
+                                <div class="course-price">₹799/month</div>
+                            </div>
+                            <a href="course-fundamentals.html" class="course-btn">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="course-card glassmorphism fade-in-up" style="animation-delay: 0.6s;">
+                        <div class="course-image-wrapper">
+                            <a href="course-advanced.html" class="course-image-link">
+                                <img src="assets/images/course_advanced.svg" alt="Advanced Techniques"
+                                    class="course-image">
+                                <div class="course-overlay"></div>
+                            </a>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Mastery & Performance</h3>
+                            <p class="course-description">Refine your technique and stage presence for professional
+                                performance.</p>
+                            <div class="course-info">
+                                <div class="course-duration">
+                                    <svg class="clock-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    6 months
+                                </div>
+                                <div class="course-price">₹999/month</div>
+                            </div>
+                            <a href="course-advanced.html" class="course-btn">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="course-card glassmorphism fade-in-up" style="animation-delay: 0.8s;">
+                        <div class="course-image-wrapper">
+                            <a href="course-theory.html" class="course-image-link">
+                                <img src="assets/images/music-theory.png" alt="Music Theory & Composition"
+                                    class="course-image">
+                                <div class="course-overlay"></div>
+                            </a>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Music Theory & Composition</h3>
+                            <p class="course-description">Learn the fundamentals of music theory and start
+                                composing
+                                your own pieces</p>
+                            <div class="course-info">
+                                <div class="course-duration">
+                                    <svg class="clock-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    4 months
+                                </div>
+                                <div class="course-price">₹1499/month</div>
+                            </div>
+                            <a href="course-theory.html" class="course-btn">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title fade-in-up">What Our Students Say</h2>
+                    <p class="section-subtitle fade-in-up" style="animation-delay: 0.2s;">
+                        Hear from our amazing students about their musical journey with us
+                    </p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card glassmorphism fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="rating">
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <p class="testimonial-text">"Teaching staff is very friendly & kindly! Now I'm playing keyboard
+                            intermediate level learnt very quickly. he tells the major tips & secrate tricks about
+                            music."</p>
+                        <div class="testimonial-author">CLIENT 1</div>
+                    </div>
+
+                    <div class="testimonial-card glassmorphism fade-in-up" style="animation-delay: 0.6s;">
+                        <div class="rating">
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <p class="testimonial-text">"The way Agilan handling the kids is very nice very friendly. & My
+                            kids playing keyboard very nicely thankyou Agilan"</p>
+                        <div class="testimonial-author">CLIENT 2</div>
+                    </div>
+
+                    <div class="testimonial-card glassmorphism fade-in-up" style="animation-delay: 0.8s;">
+                        <div class="rating">
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <p class="testimonial-text">"I'm a online student of Agilan sir from banglore! the way he
+                            teaches & clarify the doubts everytimes very well, such a friendly person literally feels
+                            like brother! i have started learning keyboard from beginner to intermediate level now
+                            within 3months ! i highly recommend this man! For u to join this academy offline & online."
+                        </p>
+                        <div class="testimonial-author">CLIENT 3</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title fade-in-up">Get In Touch</h2>
+                    <p class="section-subtitle fade-in-up" style="animation-delay: 0.2s;">
+                        Ready to start your musical journey? Contact us today to schedule your first lesson
+                    </p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-form-container slide-in-left">
+                        <div class="form-card glassmorphism">
+                            <h3 class="form-title">Send us a message</h3>
+                            <form id="contact-form" class="contact-form">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-input" placeholder="Your Email"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" class="form-textarea" placeholder="Your Message" rows="4"
+                                        required></textarea>
+                                </div>
+                                <button type="submit" class="form-submit-btn">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="contact-info-container slide-in-right">
+                        <div class="contact-info-card glassmorphism">
+                            <div class="contact-info-item">
+                                <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                    </path>
+                                </svg>
+                                <div class="contact-info-content">
+                                    <h4 class="contact-info-title">Phone</h4>
+                                    <a href="tel:001002003004" class="contact-info-link">001 002 003 004</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-card glassmorphism">
+                            <div class="contact-info-item">
+                                <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                    viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                                </svg>
+                                <div class="contact-info-content">
+                                    <h4 class="contact-info-title">WhatsApp</h4>
+                                    <a href="https://WhatsApp.com" target="_blank" rel="noopener noreferrer"
+                                        class="contact-info-link">001 002 003 004</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                            class="contact-info-card glassmorphism contact-link">
+                            <div class="contact-info-item">
+                                <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                                <div class="contact-info-content">
+                                    <h4 class="contact-info-title">Instagram</h4>
+                                    <p class="contact-info-text">Founder</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://youtube.com/your_channel" target="_blank" rel="noopener noreferrer"
+                            class="contact-info-card glassmorphism contact-link">
+                            <div class="contact-info-item">
+                                <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                                    </path>
+                                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                                </svg>
+                                <div class="contact-info-content">
+                                    <h4 class="contact-info-title">YouTube</h4>
+                                    <p class="contact-info-text">Founder</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-overlay"></div>
+            <div class="footer-pattern"></div>
+            <div class="container footer-container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                            <div class="footer-logo-icon">
+                                <img src="assets/images/logo.png" alt="Logo" style="height:50px; width:50px;">
+                            </div>
+                            <span class="footer-logo-text">Pianist</span>
+                        </a>
+                        <p class="footer-description">
+                            Empowering musicians to master the art of keyboard performance through innovative teaching
+                            methods and personalized instruction.
+                        </p>
+                        <div class="footer-social">
+                            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                                aria-label="WhatsApp">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                                </svg>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                                class="social-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </a>
+                            <a href="tel:001002003004" class="social-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                                    </path>
+                                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links-section">
+                        <h4 class="footer-heading">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="about.html" class="footer-link">About Us</a></li>
+                            <li><a href="services.html" class="footer-link">Courses</a></li>
+                            <li><a href="admin-dashboard.html" class="footer-link">Admin Dashboard</a></li>
+                            <li><a href="contact.html" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links-section">
+                        <h4 class="footer-heading">Contact Info</h4>
+                        <div class="footer-contact">
+                            <p class="footer-contact-text">Chennai</p>
+                            <a href="tel:001002003004" class="footer-link">001 002 003 004</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="footer-bottom-content">
+                        <p class="footer-copyright">© 2025 Pianist. All rights reserved.</p>
+                        <div class="footer-legal">
+                            <a href="#" class="footer-legal-link">Privacy Policy</a>
+                            <a href="#" class="footer-legal-link">Terms of Service</a>
+                            <a href="#" class="footer-legal-link">Cookie Policy</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

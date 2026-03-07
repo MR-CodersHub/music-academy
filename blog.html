@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Pianist</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body>
+  <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container" aria-label="Pianist Home">
+                    <img src="assets/images/logo.png" alt="Pianist Logo">
+                    <span class="logo-text">Pianist</span>
+                </a>
+
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="home-2.html" class="nav-link">Home 2</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="blog.html" class="nav-link active">Blog</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="enroll.html" class="btn-enroll">Enroll Now</a>
+                </div>
+
+                <div class="nav-actions">
+                    <a href="login.html" class="profile-link" aria-label="Login">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+
+                    <button class="mobile-menu-btn" aria-label="Open Menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu-overlay"></div>
+        <div class="mobile-menu-panel" style="z-index: 9999;">
+            <div class="mobile-menu-header">
+                <button class="close-menu" aria-label="Close Menu">&times;</button>
+            </div>
+            <div class="mobile-menu-links">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="home-2.html" class="mobile-nav-link active">Home 2</a>
+                <a href="about.html" class="mobile-nav-link">About</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="blog.html" class="mobile-nav-link">Blog</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+                <div class="mobile-menu-footer">
+                    <a href="enroll.html" class="btn-enroll mobile-cta">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <section style="padding: 8rem 0 2rem; text-align: center;">
+            <div class="container">
+                <h1 style="font-size: 3rem; margin-bottom: 1rem;">The Piano Journal</h1>
+                <p style="color: var(--muted-foreground);">Insights, masterclasses, and stories from the world of music.
+                </p>
+            </div>
+        </section>
+
+        <section style="padding: 2rem 0 5rem;">
+            <div class="container">
+                <!-- Featured Post -->
+                <div class="blog-featured fade-in-up">
+                    <div
+                        style="background: url('assets/images/concept_art.svg'); background-size: cover; background-position: center; min-height: 300px; filter: saturate(1.5);">
+                    </div>
+                    <div class="featured-content">
+                        <span
+                            style="background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700; width: fit-content; margin-bottom: 1rem;">FEATURED
+                            MASTERCLASS</span>
+                        <h2 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2;">
+                            Mastering the Chopin Nocturnes</h2>
+                        <p style="color: #64748b; margin-bottom: 1.5rem; font-size: 1.125rem;">A comprehensive guide to
+                            pedal technique, rubato, and emotional expression in Chopin's most beloved night pieces.</p>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <img src="assets/images/team-m2.jpg" alt="Author"
+                                style="width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover;">
+                            <div>
+                                <p style="font-weight: 700; font-size: 0.875rem;">James Wilson</p>
+                                <p style="color: #64748b; font-size: 0.75rem;">15 Min Read</p>
+                            </div>
+                        </div>
+                        <a href="blog-details.html" class="btn-enroll" style="width: fit-content;">Read Full
+                            Masterclass</a>
+                    </div>
+                </div>
+
+                <div class="blog-grid">
+                    <!-- Post 1 -->
+                    <article class="blog-card fade-in-up">
+                        <div style="position: relative;">
+                            <img src="assets/images/concept_art.svg" alt="Piano Tips" class="blog-image">
+                            <span
+                                style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.9); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700;">Education</span>
+                        </div>
+                        <div class="blog-content">
+                            <span
+                                style="color: var(--primary); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Masterclass</span>
+                            <h2 class="blog-title">The Art of Mindful Practice</h2>
+                            <p class="blog-excerpt">Move beyond repetition. Learn how deliberate, focused practice can
+                                accelerate your growth by 10x.</p>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05);">
+                                <span style="font-size: 0.75rem; color: #64748b;">Oct 12, 2025</span>
+                                <a href="blog-details.html" class="read-more" style="margin-top: 0;">Read More
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Post 2 -->
+                    <article class="blog-card fade-in-up" style="animation-delay: 0.1s;">
+                        <div style="position: relative;">
+                            <img src="assets/images/concept_art.svg" alt="Music Theory" class="blog-image"
+                                style="filter: hue-rotate(180deg);">
+                            <span
+                                style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.9); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700;">Theory</span>
+                        </div>
+                        <div class="blog-content">
+                            <span
+                                style="color: var(--primary); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Harmony</span>
+                            <h2 class="blog-title">Unlocking Musical Architecture</h2>
+                            <p class="blog-excerpt">How understanding theory transforms you from a player to a musician
+                                who speaks the music.</p>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05);">
+                                <span style="font-size: 0.75rem; color: #64748b;">Oct 05, 2025</span>
+                                <a href="blog-details.html" class="read-more" style="margin-top: 0;">Read More
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Post 3 -->
+                    <article class="blog-card fade-in-up" style="animation-delay: 0.2s;">
+                        <div style="position: relative;">
+                            <img src="assets/images/concept_art.svg" alt="Music Theory" class="blog-image"
+                                style="filter: hue-rotate(90deg);">
+                            <span
+                                style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.9); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700;">Tech</span>
+                        </div>
+                        <div class="blog-content">
+                            <span
+                                style="color: var(--primary); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Digital</span>
+                            <h2 class="blog-title">Acoustic vs. Digital Piano</h2>
+                            <p class="blog-excerpt">A deep dive into how technology is reshaping the landscape of
+                                performance and education.</p>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05);">
+                                <span style="font-size: 0.75rem; color: #64748b;">Sep 28, 2025</span>
+                                <a href="blog-details.html" class="read-more" style="margin-top: 0;">Read More
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- NEW: Trending Articles -->
+        <section id="trending" class="section">
+            <div class="container">
+                <div class="section-header" style="margin-bottom: 4rem;">
+                    <h2 class="section-title fade-in-up">Trending Articles</h2>
+                    <p class="section-subtitle fade-in-up">What the community is reading right now.</p>
+                </div>
+                <div class="trending-grid">
+                    <div class="trending-feature-card fade-in-up">
+                        <span class="trending-badge">Trending</span>
+                        <div
+                            style="background: url('assets/images/concept_art.svg'); background-size: cover; background-position: center; height: 100%; border-radius: 2rem; position: relative;">
+                            <div
+                                style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem; border-radius: 2rem;">
+                                <h3 style="color: white; font-size: 2rem; margin-bottom: 1rem;">The Psychology of
+                                    Performance Anxiety</h3>
+                                <div class="trending-meta" style="color: rgba(255,255,255,0.8);">
+                                    <span>2.5k views</span>
+                                    <span>•</span>
+                                    <span>12 Min Read</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="trending-mini-list">
+                        <article class="trending-mini-post fade-in-up" style="animation-delay: 0.1s;">
+                            <img src="assets/images/concept_art.svg" alt="Post" class="trending-mini-img">
+                            <div>
+                                <h4 style="font-size: 1.125rem; margin-bottom: 0.5rem;">How to choosing Your First Grand
+                                    Piano</h4>
+                                <div class="trending-meta">
+                                    <span>1.8k views</span>
+                                    <span>•</span>
+                                    <span>8 Min Read</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="trending-mini-post fade-in-up" style="animation-delay: 0.2s;">
+                            <img src="assets/images/concept_art.svg" alt="Post" class="trending-mini-img"
+                                style="filter: hue-rotate(45deg);">
+                            <div>
+                                <h4 style="font-size: 1.125rem; margin-bottom: 0.5rem;">The Secret Sauce of Jazz
+                                    Improvisation</h4>
+                                <div class="trending-meta">
+                                    <span>1.4k views</span>
+                                    <span>•</span>
+                                    <span>10 Min Read</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="trending-mini-post fade-in-up" style="animation-delay: 0.3s;">
+                            <img src="assets/images/concept_art.svg" alt="Post" class="trending-mini-img"
+                                style="filter: hue-rotate(180deg);">
+                            <div>
+                                <h4 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Digital Workstations for
+                                    Pianists</h4>
+                                <div class="trending-meta">
+                                    <span>1.1k views</span>
+                                    <span>•</span>
+                                    <span>15 Min Read</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Editor's Picks -->
+        <section id="editors-picks" class="section editors-picks-section">
+            <div class="container">
+                <div class="section-header" style="text-align: center; margin-bottom: 5rem;">
+                    <h2 class="section-title fade-in-up">Editor's Picks</h2>
+                    <p class="section-subtitle fade-in-up">Hand-picked insights for curious minds.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+                    <div class="editor-card fade-in-up">
+                        <img src="assets/images/keyboard.jpg" alt="Pick" class="editor-card-img">
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Decoding Beethoven's Final Sonatas</h3>
+                        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;">A deep dive into the
+                            spiritual and architectural complexity of the late works.</p>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--muted-foreground);">
+                            <span>By Dr. Sarah Chen</span>
+                            <span>Sep 20, 2025</span>
+                        </div>
+                    </div>
+                    <div class="editor-card fade-in-up" style="animation-delay: 0.1s;">
+                        <img src="assets/images/keyboard.jpg" alt="Pick" class="editor-card-img">
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Maintenance Tips for Your Instrument
+                        </h3>
+                        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;">Simple daily habits to
+                            keep your piano in pristine condition and perfect tune.</p>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--muted-foreground);">
+                            <span>By Mark Stevenson</span>
+                            <span>Sep 15, 2025</span>
+                        </div>
+                    </div>
+                    <div class="editor-card fade-in-up" style="animation-delay: 0.2s;">
+                        <img src="assets/images/keyboard.jpg" alt="Pick" class="editor-card-img">
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">The Evolution of Piano Manufacturing
+                        </h3>
+                        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;">How 200 years of
+                            engineering brought us the modern concert grand.</p>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--muted-foreground);">
+                            <span>By Leo Härtel</span>
+                            <span>Sep 10, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Newsletter Subscription -->
+        <section class="section">
+            <div class="container">
+                <div class="newsletter-block fade-in-up">
+                    <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">Join 10,000+ Pianists Reading
+                        Weekly</h2>
+                    <p style="opacity: 0.9;">Get masterclass tips, theory deep dives, and academy updates in your inbox.
+                    </p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Learning Path Blog Series -->
+        <section id="learning-paths" class="section">
+            <div class="container">
+                <div class="section-header" style="margin-bottom: 5rem;">
+                    <h2 class="section-title fade-in-up">Blog Series: Learning Paths</h2>
+                    <p class="section-subtitle fade-in-up">Step-by-step guides for every stage of your journey.</p>
+                </div>
+                <div class="path-timeline">
+                    <div class="path-group fade-in-up">
+                        <div class="path-bubble">🌱</div>
+                        <span class="path-level">Beginner Series</span>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                            <div class="editor-card" style="padding: 1.25rem;">
+                                <h4 style="margin-bottom: 0.5rem;">Part 1: Posture & Hand Position</h4>
+                                <a href="blog-details.html" class="read-more" style="font-size: 0.8rem;">Read Article
+                                    &rarr;</a>
+                            </div>
+                            <div class="editor-card" style="padding: 1.25rem;">
+                                <h4 style="margin-bottom: 0.5rem;">Part 2: Reading the Grand Staff</h4>
+                                <a href="blog-details.html" class="read-more" style="font-size: 0.8rem;">Read Article
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-group fade-in-up">
+                        <div class="path-bubble">🔥</div>
+                        <span class="path-level">Intermediate Series</span>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                            <div class="editor-card" style="padding: 1.25rem;">
+                                <h4 style="margin-bottom: 0.5rem;">Mastering the Major Scales</h4>
+                                <a href="blog-details.html" class="read-more" style="font-size: 0.8rem;">Read Article
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Popular Tags Cloud -->
+        <section id="tags" class="section" style="padding-top: 2rem;">
+            <div class="container">
+                <h3 style="margin-bottom: 2rem; font-size: 1.5rem;">Explore Popular Tags</h3>
+                <div class="tag-cloud fade-in-up">
+                    <button class="tag-btn">#Classical</button>
+                    <button class="tag-btn">#Jazz</button>
+                    <button class="tag-btn">#TheoryDeepDive</button>
+                    <button class="tag-btn">#PracticeHacks</button>
+                    <button class="tag-btn">#PianoTech</button>
+                    <button class="tag-btn">#ArtistSpotlight</button>
+                    <button class="tag-btn">#PerformanceTips</button>
+                    <button class="tag-btn">#MusicHistory</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Strong Bottom CTA -->
+        <section class="blog-bottom-cta">
+            <div class="container">
+                <h2 class="cta-title fade-in-up">Ready to Master the Piano?</h2>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;" class="fade-in-up">
+                    <a href="services.html" class="hero-btn"
+                        style="background: white; color: var(--foreground); border: none;">Explore Courses</a>
+                    <a href="contact.html" class="hero-btn"
+                        style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white;">Book
+                        Free Consultation</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-overlay"></div>
+            <div class="footer-pattern"></div>
+            <div class="container footer-container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                            <div class="footer-logo-icon">
+                                <img src="assets/images/logo.png" alt="Logo" style="height: 50px; width: 50px;">
+                            </div>
+                            <span class="footer-logo-text">Pianist</span>
+                        </a>
+                        <p class="footer-description">
+                            Empowering musicians to master the art of keyboard performance through innovative
+                            teaching
+                            methods and
+                            personalized instruction.
+                        </p>
+                        <div class="footer-social">
+                            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                                aria-label="WhatsApp">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="currentColor" stroke="none">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                                </svg>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                                class="social-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </a>
+                            <a href="tel:001002003004" class="social-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                                    </path>
+                                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links-section">
+                        <h4 class="footer-heading">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="about.html" class="footer-link">About Us</a></li>
+                            <li><a href="services.html" class="footer-link">Courses</a></li>
+                            <li><a href="contact.html" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links-section">
+                        <h4 class="footer-heading">Contact Info</h4>
+                        <div class="footer-contact">
+                            <p class="footer-contact-text">Chennai</p>
+                            <a href="tel:001002003004" class="footer-link">001 002 003 004</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="footer-bottom-content">
+                        <p class="footer-copyright"> 2025 Pianist. All rights reserved.</p>
+                        <div class="footer-legal">
+                            <a href="#" class="footer-legal-link">Privacy Policy</a>
+                            <a href="#" class="footer-legal-link">Terms of Service</a>
+                            <a href="#" class="footer-legal-link">Cookie Policy</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
