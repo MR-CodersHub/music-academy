@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Pianist</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at top right, var(--primary-dark), var(--background));
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-content {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+
+        .error-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .error-description {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
+        .musical-note {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 10s infinite linear;
+            z-index: 1;
+            color: var(--primary);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.1;
+            }
+
+            90% {
+                opacity: 0.1;
+            }
+
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="error-page">
+        <!-- Floating Notes Background -->
+        <svg class="musical-note" style="left: 10%; animation-duration: 8s; font-size: 4rem;" width="40" height="40"
+            viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+        </svg>
+        <svg class="musical-note" style="left: 20%; animation-duration: 12s; font-size: 3rem;" width="40" height="40"
+            viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+        </svg>
+        <svg class="musical-note" style="left: 80%; animation-duration: 9s; font-size: 5rem;" width="40" height="40"
+            viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+        </svg>
+        <svg class="musical-note" style="left: 90%; animation-duration: 11s; font-size: 2rem;" width="40" height="40"
+            viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+        </svg>
+
+        <div class="error-content">
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">Hit a Wrong Note?</h2>
+            <p class="error-description">
+                The page you are looking for seems to be out of tune or doesn't exist.
+                Let's get you back to the rhythm.
+            </p>
+            <a href="index.html" class="hero-btn">Back to Home</a>
+        </div>
+    </div>
+</body>
+
+</html>
+

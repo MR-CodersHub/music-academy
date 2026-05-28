@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Pianist</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container" aria-label="Pianist Home">
+                    <img src="assets/images/logo.png" alt="Pianist Logo">
+                    <span class="logo-text">Pianist</span>
+                </a>
+
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="home-2.html" class="nav-link">Home 2</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="services.html" class="nav-link active">Services</a>
+                    <a href="blog.html" class="nav-link">Blog</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="enroll.html" class="btn-enroll">Enroll Now</a>
+                </div>
+
+                <div class="nav-actions">
+                    <a href="login.html" class="profile-link" aria-label="Login">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+
+                    <button class="mobile-menu-btn" aria-label="Open Menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu-overlay"></div>
+        <div class="mobile-menu-panel" style="z-index: 9999;">
+            <div class="mobile-menu-header">
+                <button class="close-menu" aria-label="Close Menu">&times;</button>
+            </div>
+            <div class="mobile-menu-links">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="home-2.html" class="mobile-nav-link active">Home 2</a>
+                <a href="about.html" class="mobile-nav-link">About</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="blog.html" class="mobile-nav-link">Blog</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+                <div class="mobile-menu-footer">
+                    <a href="enroll.html" class="btn-enroll mobile-cta">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="hero-title" style="font-size: 3rem;">Our Courses & Services</h1>
+                <p class="hero-subtitle">Comprehensive music education for all ages</p>
+            </div>
+        </section>
+
+        <!-- Courses List (Reused from Index) -->
+        <section class="courses-section" style="padding-top: 2rem;">
+            <div class="container">
+                <div class="courses-grid">
+                    <!-- Cards -->
+                    <div class="course-card glassmorphism fade-in-up">
+                        <div class="course-image-wrapper">
+                            <a href="course-fundamentals.html" class="course-image-link">
+                                <img src="assets/images/course_fundamentals.svg" alt="Foundations" class="course-image">
+                                <div class="course-overlay"></div>
+                            </a>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Foundations of Music</h3>
+                            <p class="course-description">Build a solid musical base with essential techniques and
+                                reading skills.</p>
+                            <a href="course-fundamentals.html" class="course-btn">View Details</a>
+                        </div>
+                    </div>
+                    <div class="course-card glassmorphism fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="course-image-wrapper">
+                            <a href="course-advanced.html" class="course-image-link">
+                                <img src="assets/images/course_advanced.svg" alt="Mastery" class="course-image">
+                                <div class="course-overlay"></div>
+                            </a>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Mastery & Performance</h3>
+                            <p class="course-description">Refine your technique and stage presence for professional
+                                performance.</p>
+                            <a href="course-advanced.html" class="course-btn">View Details</a>
+                        </div>
+                    </div>
+                    <div class="course-card glassmorphism fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="course-image-wrapper">
+                            <a href="course-theory.html" class="course-image-link">
+                                <img src="assets/images/course_theory.svg" alt="Theory" class="course-image">
+                                <div class="course-overlay"></div>
+                            </a>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Composition & Theory</h3>
+                            <p class="course-description">Unlock the secrets of harmony, melody, and musical structure.
+                            </p>
+                            <a href="course-theory.html" class="course-btn">View Details</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+    </div>
+    </section>
+
+    <!-- Pricing Tiers -->
+    <section class="pricing-section" style="padding: var(--space-xl) 0; background: var(--background);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--space-lg);">
+                <h2 class="section-title">Pricing Tiers</h2>
+                <p style="color: #64748b; font-size: 1.125rem;">Select the plan that fits your musical ambition.</p>
+            </div>
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card fade-in-up">
+                    <h3 style="font-size: 1.5rem; font-weight: 700;">Starter</h3>
+                    <div class="price">$45<span>/session</span></div>
+                    <ul class="pricing-features">
+                        <li>45-Minute Session</li>
+                        <li>Basic Theory Materials</li>
+                        <li>Monthly Progress Report</li>
+                        <li>Email Support</li>
+                    </ul>
+                    <a href="contact.html" class="course-btn">Select Plan</a>
+                </div>
+                <!-- Pro -->
+                <div class="pricing-card popular fade-in-up" style="animation-delay: 0.2s;">
+                    <span
+                        style="background: var(--primary); color: white; padding: 0.25rem 1rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700; width: fit-content; margin: 0 auto var(--space-xs);">MOST
+                        POPULAR</span>
+                    <h3 style="font-size: 1.5rem; font-weight: 700;">Pro Mastery</h3>
+                    <div class="price">$75<span>/session</span></div>
+                    <ul class="pricing-features">
+                        <li>60-Minute Session</li>
+                        <li>Advanced Techniques</li>
+                        <li>Weekly Video Feedback</li>
+                        <li>Performance Opportunities</li>
+                    </ul>
+                    <a href="contact.html" class="btn-enroll" style="text-align: center;">Book Pro Now</a>
+                </div>
+                <!-- Elite -->
+                <div class="pricing-card fade-in-up" style="animation-delay: 0.4s;">
+                    <h3 style="font-size: 1.5rem; font-weight: 700;">Elite Artist</h3>
+                    <div class="price">$120<span>/session</span></div>
+                    <ul class="pricing-features">
+                        <li>90-Minute Session</li>
+                        <li>Studio Recording Time</li>
+                        <li>Artist Branding Consultation</li>
+                        <li>Priority Scheduling</li>
+                    </ul>
+                    <a href="contact.html" class="course-btn">Select Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Types -->
+    <section style="padding: var(--space-xl) 0; background: rgba(248, 250, 252, 0.5);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--space-lg);">
+                <h2 class="section-title">Specialized Performance Services</h2>
+                <p style="color: #64748b; font-size: 1.125rem;">Professional accompaniment and solo performances for
+                    any occasion.</p>
+            </div>
+            <div class="about-grid">
+                <div class="fade-in-up">
+                    <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Solo Concerts & Recitals
+                    </h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Captivating audiences with a diverse
+                        repertoire ranging from classical masterpieces to modern cinematic arrangements. Perfect for
+                        corporate events, private galas, and concert halls.</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li
+                            style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: #64748b;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Grand Piano Masterpieces
+                        </li>
+                        <li
+                            style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: #64748b;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Immersive Soundscapes
+                        </li>
+                    </ul>
+                </div>
+                <div class="fade-in-up" style="animation-delay: 0.2s;">
+                    <img src="assets/images/grand-piano-in-concert-hall.jpg" alt="Concert Performance"
+                        style="width: 100%; border-radius: 1.5rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking CTA -->
+    <section
+        style="padding: var(--space-2xl) 0; text-align: center; background: linear-gradient(to bottom, #dbeafe, #f8fafc);">
+        <div class="container">
+            <h2 class="hero-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">Ready to Elevate Your Craft?</h2>
+            <p class="hero-subtitle" style="max-width: 35rem;">Secure your spot in our upcoming semester or book a
+                performance for your next event.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: var(--space-md);">
+
+                <a href="contact.html" class="course-btn" style="padding: 1rem 2.5rem;">Inquire for Booking</a>
+            </div>
+        </div>
+    </section>
+
+    </div>
+    <footer class="footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-pattern"></div>
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <img src="assets/images/logo.png" alt="Logo" style ="height:50px; width:50px;">
+                        </div>
+                        <span class="footer-logo-text">Pianist</span>
+                    </a>
+                    <p class="footer-description">
+                        Empowering musicians to master the art of keyboard performance through innovative
+                        teaching
+                        methods and
+                        personalized instruction.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                            aria-label="WhatsApp">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="currentColor" stroke="none">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="tel:001002003004" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                                </path>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links-section">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="services.html" class="footer-link">Courses</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-section">
+                    <h4 class="footer-heading">Contact Info</h4>
+                    <div class="footer-contact">
+                        <p class="footer-contact-text">Chennai</p>
+                        <a href="tel:001002003004" class="footer-link">001 002 003 004</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="footer-copyright"> 2025 Pianist. All rights reserved.</p>
+                    <div class="footer-legal">
+                        <a href="#" class="footer-legal-link">Privacy Policy</a>
+                        <a href="#" class="footer-legal-link">Terms of Service</a>
+                        <a href="#" class="footer-legal-link">Cookie Policy</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

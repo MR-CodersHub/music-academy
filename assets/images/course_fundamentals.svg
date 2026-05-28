@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  
+  <!-- Piano Keys -->
+  <g transform="translate(100, 200)">
+    <rect x="0" y="0" width="600" height="200" fill="white" rx="5"/>
+    <path d="M0,0 h600 v200 h-600 z" fill="none" stroke="#ccc" stroke-width="2"/>
+    
+    <!-- White Keys Lines -->
+    <line x1="85" y1="0" x2="85" y2="200" stroke="#ccc" stroke-width="2"/>
+    <line x1="170" y1="0" x2="170" y2="200" stroke="#ccc" stroke-width="2"/>
+    <line x1="255" y1="0" x2="255" y2="200" stroke="#ccc" stroke-width="2"/>
+    <line x1="340" y1="0" x2="340" y2="200" stroke="#ccc" stroke-width="2"/>
+    <line x1="425" y1="0" x2="425" y2="200" stroke="#ccc" stroke-width="2"/>
+    <line x1="510" y1="0" x2="510" y2="200" stroke="#ccc" stroke-width="2"/>
+    
+    <!-- Black Keys -->
+    <rect x="55" y="0" width="60" height="120" fill="#1e293b" rx="2"/>
+    <rect x="150" y="0" width="60" height="120" fill="#1e293b" rx="2"/>
+    
+    <rect x="310" y="0" width="60" height="120" fill="#1e293b" rx="2"/>
+    <rect x="405" y="0" width="60" height="120" fill="#1e293b" rx="2"/>
+    <rect x="495" y="0" width="60" height="120" fill="#1e293b" rx="2"/>
+  </g>
+  
+  <text x="400" y="500" font-family="Arial, sans-serif" font-size="40" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="2">FUNDAMENTALS</text>
+</svg>
